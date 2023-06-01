@@ -1,2 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine($"Hello, World! {Kate.Algorithms.Calculator.Add(4, 3)}");
+foreach (Kate.Algorithms.EinsteinQuizSolver.SetUp solution in Kate.Algorithms.EinsteinQuizSolver.Solve())
+{
+    int i = 1;
+    foreach (var house in solution.houses)
+    {
+        System.Console.WriteLine($"{i} {house.color} {house.drink} {house.cigarettes} {house.pet} {house.nationality}");
+        i++;
+    }
+}
+

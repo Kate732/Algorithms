@@ -1,4 +1,4 @@
-namespace TestProject;
+namespace Kate.TestProject;
 [TestClass]
 public class CalcuratorTest
 {

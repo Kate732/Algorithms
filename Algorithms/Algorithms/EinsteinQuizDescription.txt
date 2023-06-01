@@ -1,0 +1,31 @@
+﻿
+1. Nationality - Englishman Spaniard Ukrainian Norwegian Japanese
+2. Color - Red Green Ivory Yellow Blue
+3. Pet - Dog Snails Fox Horse Zebra 
+4. Drink - Coffee Tea Milk OrangeJuice Water
+5. Сigarettes - OldGold Chesterfields Kools LuckyStrike Parliaments
+*Position (list number)
+
+The following version of the puzzle 
+appeared in Life International in 1962:
+
+There are five houses.
+
+
+
+The Englishman lives in the red house.
+The Spaniard owns the dog.
+Coffee is drunk in the green house.
+The Ukrainian drinks tea.
+The green house is immediately to the right of the ivory house.
+The Old Gold smoker owns snails.
+Kools are smoked in the yellow house.
+Milk is drunk in the middle house.
+The Norwegian lives in the first house.
+The man who smokes Chesterfields lives in the house next to the man with the fox.
+Kools are smoked in the house next to the house where the horse is kept.
+The Lucky Strike smoker drinks orange juice.
+The Japanese smokes Parliaments.
+The Norwegian lives next to the blue house.
+
+Now, who drinks water? Who owns the zebra?     \\(Joke: everyone (specially Ukrainian)), zookeper)
