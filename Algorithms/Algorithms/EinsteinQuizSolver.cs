@@ -1,7 +1,4 @@
-﻿using System.Security.Authentication;
-using static Kate.Algorithms.EinsteinQuizSolver;
-
-namespace Kate.Algorithms
+﻿namespace Kate.Algorithms
 {
 	public static class EinsteinQuizSolver
 	{
@@ -16,22 +13,27 @@ namespace Kate.Algorithms
 				
 			}
 		}
-		private static IEnumerable<T> GetAllCharacteristics<T>()
+		private static List<T> GetAllCharacteristics<T>()
 		{
-			return Enum.GetValues(typeof(T)).Cast<T>();
+			return Enum.GetValues(typeof(T)).Cast<T>().ToList();
 		}
 
-		private static IEnumerable<House> GenerateAllPossibleHouses()
+		private static IEnumerable<House> GenerateAllPossibleHouses(
+			IEnumerable<Color> possibleColors,
+			IEnumerable<Nationality> possibleNationalities,
+			IEnumerable<Pet> possiblePets,
+			IEnumerable<Drink> possibleDrinks,
+			IEnumerable<Сigarettes> possibleСigarettes)
 		{
-			foreach (Color color in GetAllCharacteristics<Color>())
+			foreach (Color color in possibleColors)
 			{
-				foreach (Nationality nationality in GetAllCharacteristics<Nationality>())
+				foreach (Nationality nationality in possibleNationalities)
 				{
-					foreach (Pet pet in GetAllCharacteristics<Pet>())
+					foreach (Pet pet in possiblePets)
 					{
-						foreach (Drink drink in GetAllCharacteristics<Drink>())
+						foreach (Drink drink in possibleDrinks)
 						{
-							foreach (Сigarettes cigarettes in GetAllCharacteristics<Сigarettes>())
+							foreach (Сigarettes cigarettes in possibleСigarettes)
 							{
 								yield return new House { color = color, nationality = nationality, pet = pet, drink = drink, cigarettes = cigarettes };
 							}
@@ -41,28 +43,51 @@ namespace Kate.Algorithms
 			}
 		}
 
-
 		public static IEnumerable<SetUp> GenerateAllPossibleSolutions()
 		{
-			foreach (House house1 in GenerateAllPossibleHouses())
+			int step = 1;
+			var phc1 = GetAllCharacteristics<Color>();
+			var phn1 = GetAllCharacteristics<Nationality>();
+			var php1 = GetAllCharacteristics<Pet>();
+			var phd1 = GetAllCharacteristics<Drink>();
+			var phcg1 = GetAllCharacteristics<Сigarettes>();
+			foreach (House house1 in GenerateAllPossibleHouses(phc1, phn1, php1, phd1, phcg1))
 			{
-				foreach (House house2 in GenerateAllPossibleHouses())
+				var phc2 = phc1.Where(x => x != house1.color).ToList();
+				var phn2 = phn1.Where(x => x != house1.nationality).ToList();
+				var php2 = php1.Where(x => x != house1.pet).ToList();
+				var phd2 = phd1.Where(x => x != house1.drink).ToList();
+				var phcg2 = phcg1.Where(x => x != house1.cigarettes).ToList();
+				foreach (House house2 in GenerateAllPossibleHouses(phc2, phn2, php2, phd2, phcg2))
 				{
-					if (HousesHaveSameChar(new List<House> { house1, house2 })) continue;
-					foreach (House house3 in GenerateAllPossibleHouses())
+					var phc3 = phc2.Where(x => x != house2.color).ToList();
+					var phn3 = phn2.Where(x => x != house2.nationality).ToList();
+					var php3 = php2.Where(x => x != house2.pet).ToList();
+					var phd3 = phd2.Where(x => x != house2.drink).ToList();
+					var phcg3 = phcg2.Where(x => x != house2.cigarettes).ToList();
+					foreach (House house3 in GenerateAllPossibleHouses(phc3, phn3, php3, phd3, phcg3))
 					{
-						if (HousesHaveSameChar(new List<House> { house1, house2, house3 })) continue;
-						foreach (House house4 in GenerateAllPossibleHouses())
+						var phc4 = phc3.Where(x => x != house3.color).ToList();
+						var phn4 = phn3.Where(x => x != house3.nationality).ToList();
+						var php4 = php3.Where(x => x != house3.pet).ToList();
+						var phd4 = phd3.Where(x => x != house3.drink).ToList();
+						var phcg4 = phcg3.Where(x => x != house3.cigarettes).ToList();
+						foreach (House house4 in GenerateAllPossibleHouses(phc4, phn4, php4, phd4, phcg4))
 						{
-							if (HousesHaveSameChar(new List<House> { house1, house2, house3, house4 }))
-								continue;
-							foreach (House house5 in GenerateAllPossibleHouses())
+							var phc5 = phc4.Where(x => x != house4.color).ToList();
+							var phn5 = phn4.Where(x => x != house4.nationality).ToList();
+							var php5 = php4.Where(x => x != house4.pet).ToList();
+							var phd5 = phd4.Where(x => x != house4.drink).ToList();
+							var phcg5 = phcg4.Where(x => x != house4.cigarettes).ToList();
+							foreach (House house5 in GenerateAllPossibleHouses(phc5, phn5, php5, phd5, phcg5))
 							{
-								if (HousesHaveSameChar(new List<House> { house1, house2, house3, house4, house5 }))
-									continue;
-
-								SetUp possibleSolution = new SetUp();
-								possibleSolution.houses = new List<House> { house1, house2, house3, house4, house5 };
+								SetUp possibleSolution = new SetUp() {
+									houses = new List<House> { house1, house2, house3, house4, house5 }
+								};
+								if (step % 10000000 == 0) {
+									Console.WriteLine($"Step = {step}");
+								}
+								step++;
 								if (!IsSolution(possibleSolution))
 								{
 									continue;
