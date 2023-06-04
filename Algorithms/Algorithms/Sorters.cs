@@ -1,11 +1,9 @@
-using System.Threading.Channels;
-
 namespace Kate.Algorithms;
 
 public static class Sorters
 {
-    public static void BubbleSort(List<int> list)
-    {
+    public static void BubbleSort<T>(List<T> list) where T : IComparable<T>
+	{
         bool IsSorted = false;
 		int leftAdge = 0;
 		int rightAdge = list.Count - 1;
@@ -17,7 +15,7 @@ public static class Sorters
             {
                 for(int i = leftAdge; i < rightAdge; i++)
                 {
-                    bool changed = CompareAndSwitch(i, list);
+                    bool changed = CompareAndSwitch<T>(i, list);
                     IsSorted &= !changed;
                 }
             }
@@ -26,7 +24,7 @@ public static class Sorters
                 for(int i = rightAdge; i > leftAdge; i--)
                 {
                     int leftElementIndex = i - 1;
-					bool changed = CompareAndSwitch(leftElementIndex, list);
+					bool changed = CompareAndSwitch<T>(leftElementIndex, list);
 					IsSorted &= !changed;
 				}
             }
@@ -42,14 +40,15 @@ public static class Sorters
         }
     }
 
-	private static bool CompareAndSwitch(int leftIndexElement, List<int> list)
+	private static bool CompareAndSwitch<T1>(int leftIndexElement, List<T1> list) where T1 : IComparable<T1>
 	{
         int rightIndexElement = leftIndexElement + 1;
-		if (list[leftIndexElement] <= list[rightIndexElement])
+        int compared = list[leftIndexElement].CompareTo(list[rightIndexElement]);
+		if (compared <= 0 )
         {
             return false;
         }
-		int biggerNum = list[leftIndexElement];
+		T1 biggerNum = list[leftIndexElement];
 		list[leftIndexElement] = list[rightIndexElement];
 		list[rightIndexElement] = biggerNum;
 		return true;
