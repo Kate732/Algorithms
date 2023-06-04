@@ -272,12 +272,12 @@
                     indexOfHouseOfNorwegian = i;
                 }
             }
-            if (indexOfHouseOfNorwegian == -1 || indexOfHouseOfNorwegian == -1)
+            if (indexOfHouseOfNorwegian == -1 || indexOfTheBlueHouse == -1)
             {
                 throw new Exception("No house in which Norwegian lives or blue house in set up");
             }
 
-            return Math.Abs(indexOfHouseOfNorwegian - indexOfHouseOfNorwegian) == 1;
+            return Math.Abs(indexOfHouseOfNorwegian - indexOfTheBlueHouse) == 1;
         }
 
         public class SetUp
